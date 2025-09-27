@@ -98,4 +98,5 @@ func (s *Server) CreateDuck(ctx context.Context, request CreateDuckRequestObject
 		}, nil
 
 	return CreateDuck201JSONResponse(duck), nil
+	}
 }
