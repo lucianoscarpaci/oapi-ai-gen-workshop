@@ -26,7 +26,7 @@ func main() {
 	// With this, we can feed NewServer a fake implementation in tests if we want to isolate behavior.
 	// But usually it's best to test with the [real things](https://testcontainers.com/) in Go.
 	db := store.NewInMemoryStore()
-	srv := api.NewServer(db)
+	srv *apiServer = api.NewServer(db)
 
 	// Chi is a lightweight router (mux) that works with the built in standard library http handlers.
 	// It's got a lot of nice features and it's compatible with any tooling that works off the standard library like middlewares.
