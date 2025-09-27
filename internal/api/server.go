@@ -31,6 +31,7 @@ func (s *Server) GetDucks(ctx context.Context, request GetDucksRequestObject) (G
 			Message: "failed to get ducks: %s", err), // in prod, don't ever let a user get your internal erros :^)
 		}, nil
 	}
+	return GetDucks200JSONResponse(ducks), nil
  // NewServer will create a new Server struct loaded with a duck store that implements the DuckStore interfacce
 func NewServer(ds DuckStore) *Server {
 	server := &Server{
