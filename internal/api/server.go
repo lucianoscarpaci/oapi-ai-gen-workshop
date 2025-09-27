@@ -17,15 +17,21 @@ var _ StrictServerInterface = (*Server)(nil)
 // See standard library io -> net -> net/http for an idea of exporting interfaces in practice
 type DuckStore interface {
 	GetDucks(ctx context.Context) ([]RubberDuck, error)
-	CreateDuck(ctx context.Context, duck NewRubberDuck) (RubberDuck, error)
 }
 
-// Server holds our handlers and our duckStore
 type Server struct {
 	duckStore DuckStore
 }
 
-// NewServer will create a new Server struct loaded with a duck store that implements the DuckStore interfacce
+func (s *Server) GetDucks(ctx context.Context, request GetDucksRequestObject) (GetDucksResponseObject, error) {
+	ducks, err := s.duckStore.GetDucks(ctx)
+	if err != nil {
+		return GetDucks500JSONResponse{
+			Code:    500,
+			Message: "failed to get ducks: %s", err), // in prod, don't ever let a user get your internal erros :^)
+		}, nil
+	}
+ // NewServer will create a new Server struct loaded with a duck store that implements the DuckStore interfacce
 func NewServer(ds DuckStore) *Server {
 	server := &Server{
 		duckStore: ds,
