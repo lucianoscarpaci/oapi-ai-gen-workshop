@@ -88,3 +88,14 @@ func (s *Server) CreateDuck(ctx context.Context, request CreateDuckRequestObject
 
 	return CreateDuck201JSONResponse(duck), nil
 }
+func (s *Server) CreateDuck(ctx context.Context, request CreateDuckRequestObject) (CreateDuckResponseObject, error) {
+	d *CreateDuckRequestBody = *request.Body
+	duck RubberDuck, err error := s.duckStore.CreateDuck(ctx, d)
+	if err != nil {
+		return CreateDuck500JSONResponse{
+			Code:    500,
+			Message: fmt.Sprintf("failed to create duck: %s", err),
+		}, nil
+
+	return CreateDuck201JSONResponse(duck), nil
+}
