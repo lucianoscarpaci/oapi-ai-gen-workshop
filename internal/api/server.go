@@ -22,7 +22,11 @@ type DuckStore interface {
 type Server struct {
 	duckStore DuckStore
 }
-
+func NewServer(ds DuckStore) *Server {
+	return &Server{
+		duckStore: ds,
+	}
+}
 func (s *Server) GetDucks(ctx context.Context, request GetDucksRequestObject) (GetDucksResponseObject, error) {
 	ducks, err := s.duckStore.GetDucks(ctx)
 	if err != nil {
